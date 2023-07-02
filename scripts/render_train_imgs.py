@@ -12,12 +12,70 @@ from bop_toolkit_lib import inout
 from bop_toolkit_lib import misc
 from bop_toolkit_lib import renderer
 from bop_toolkit_lib import view_sampler
+import numpy as np
+import matplotlib.pyplot as plt
+
+views, views_level = view_sampler.sample_views(20)
+count = 0
+Views = np.zeros(shape=(len(views), 3))
+x = Views[:,0]
+y = Views[:,1]
+z = Views[:,2]
+ux = np.zeros(shape=(len(x), 1))
+vx = np.zeros(shape=(len(x), 1))
+wx = np.zeros(shape=(len(x), 1))
+uy = np.zeros(shape=(len(x), 1))
+vy = np.zeros(shape=(len(x), 1))
+wy = np.zeros(shape=(len(x), 1))
+uz = np.zeros(shape=(len(x),1))
+vz = np.zeros(shape=(len(x),1))
+wz = np.zeros(shape=(len(x),1))
+
+# Color by azimuthal angle
+cx = np.ones(shape=(len(x), 1))
+cx = plt.cm.hsv(cx)
+
+cy = np.ones(shape=(len(x), 1))
+cy = plt.cm.brg(cy)
+
+for view in views:
+  Views[count, 0] = view["t"][0]
+  Views[count, 1] = view["t"][1]
+  Views[count, 2] = view["t"][2]
+  ux[count] = view["R"][0,0]
+  vx[count] = view["R"][0,1]
+  wx[count] = view["R"][0,2]
+  uy[count] = view["R"][1,0]
+  vy[count] = view["R"][1,1]
+  wy[count] = view["R"][1,2]
+  uz[count] = -view["R"][2,0]
+  vz[count] = -view["R"][2,1]
+  wz[count] = -view["R"][2,2]
+  count = count + 1
+
+
+
+fig = plt.figure()
+ax = plt.axes(projection='3d')
+ax.clear()
+ax.scatter3D(Views[:, 0], Views[:, 1], Views[:, 2], cmap='Greens')
+ax.quiver(x.transpose(), y.transpose(), z.transpose(), ux.transpose(), vx.transpose(), wx.transpose(), length=0.1, normalize=True, colors=cx)
+ax.quiver(x.transpose(), y.transpose(), z.transpose(), uy.transpose(), vy.transpose(), wy.transpose(), length=0.1, normalize=True, colors=cy)
+ax.quiver(x.transpose(), y.transpose(), z.transpose(), uz.transpose(), vz.transpose(), wz.transpose(), length=0.1, normalize=True)
+plt.show()
+
+
+# x, y, z = np.meshgrid(Views[:,0],Views[:,1],Views[:,2])
+# u = np.sin(np.pi * x) * np.cos(np.pi * y) * np.cos(np.pi * z)
+# v = -np.cos(np.pi * x) * np.sin(np.pi * y) * np.cos(np.pi * z)
+# w = (np.sqrt(2.0 / 3.0) * np.cos(np.pi * x) * np.cos(np.pi * y) *
+#      np.sin(np.pi * z))
 
 
 # PARAMETERS.
 ################################################################################
 # See dataset_params.py for options.
-dataset = 'tyol'
+dataset = 'tless'
 
 # Radii of view spheres from which to render the objects.
 if dataset == 'lm':

@@ -231,8 +231,8 @@ def sample_views(
     R = R_yz_flip.dot(R)
 
     # Translation vector.
-    t = -R.dot(np.array(pt).reshape((3, 1)))
-
+    # t = -R.dot(np.array(pt).reshape((3, 1)))
+    t = pt
     views.append({'R': R, 't': t})
 
   return views, pts_level
