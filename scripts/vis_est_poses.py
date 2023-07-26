@@ -13,6 +13,7 @@ from bop_toolkit_lib import inout
 from bop_toolkit_lib import misc
 from bop_toolkit_lib import renderer
 from bop_toolkit_lib import visualization
+import argparse
 
 
 # PARAMETERS.
@@ -66,6 +67,17 @@ p = {
 }
 ################################################################################
 
+# Command line arguments.
+# ------------------------------------------------------------------------------
+parser = argparse.ArgumentParser()
+parser.add_argument('--renderer_type', default=p['renderer_type'])
+parser.add_argument('--result_filenames',
+                    default=','.join(p['result_filenames']),
+                    help='Comma-separated names of files with results.')
+args = parser.parse_args()
+
+p['renderer_type'] = str(args.renderer_type)
+p['result_filenames'] = args.result_filenames.split(',')
 
 # Load colors.
 colors_path = os.path.join(
@@ -103,7 +115,7 @@ for result_fname in p['result_filenames']:
   # Create a renderer.
   width, height = dp_split['im_size']
   ren = renderer.create_renderer(
-    width, height, p['renderer_type'], mode=renderer_mode)
+    width, height, p['renderer_type'], mode=renderer_mode, shading='flat')
 
   # Load object models.
   models = {}
