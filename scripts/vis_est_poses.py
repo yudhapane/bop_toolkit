@@ -21,10 +21,10 @@ import argparse
 p = {
   # Top N pose estimates (with the highest score) to be visualized for each
   # object in each image.
-  'n_top': 1,  # 0 = all estimates, -1 = given by the number of GT poses.
+  'n_top': 0,  # 0 = all estimates, -1 = given by the number of GT poses.
 
   # True = one visualization for each (im_id, obj_id), False = one per im_id.
-  'vis_per_obj_id': True,
+  'vis_per_obj_id': False,
 
   # Indicates whether to render RGB image.
   'vis_rgb': True,

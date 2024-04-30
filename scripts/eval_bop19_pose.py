@@ -68,7 +68,7 @@ p = {
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019_sample_results.zip
   'result_filenames': [
-    'C:\\Users\\Yudha Pane\\Downloads\\hodan-iros15_tless-test-primesense.csv',
+    'C:\\Users\\COYPA\\Downloads\\Yudha Pane folders\\Downloads\\hodan-iros15_tless-test-primesense.csv',
   ],
 
   # Folder with results to be evaluated.
